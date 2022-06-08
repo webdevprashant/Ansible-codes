@@ -1,0 +1,13 @@
+- hosts: 192.168.43.130 
+  vars:
+  - x:
+      - "httpd"
+      - "php"
+      - "vim"
+  tasks:
+  - package:
+      name: "{{ x  }}"
+      state: present
+    loop:  "{{ x }}"
+            #- "httpd"
+            #- "php"

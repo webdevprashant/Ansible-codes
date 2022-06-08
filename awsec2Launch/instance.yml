@@ -1,0 +1,13 @@
+- hosts: 127.0.0.1
+  tasks:
+  - ec2_instance
+      region: ap-south-1
+      image_id: ami-08f63db601b8ff5f
+      instance_type: t2.micro
+      vpc_subnet_id: subnet-989698f0
+      security_group: sg-0b7e0f8a2e226952d
+      key_name: awsclass2020key
+      name: ansibleos
+      state: present
+      aws_access_key: 
+      aws_secret_key: 

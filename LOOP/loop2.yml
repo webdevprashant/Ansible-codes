@@ -1,0 +1,10 @@
+- hosts: 192.168.43.130
+  vars:
+  - x:
+      - "httpd"
+      - "php"
+  tasks:
+  - debug:
+          var: x 
+          var: x[0]
+          var: x[1] 

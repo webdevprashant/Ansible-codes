@@ -1,0 +1,12 @@
+- hosts: 127.0.0.1
+  vars:
+  - u1:
+    - "name": "jack"
+    - "password":  "pop"
+    -  "g": "tom"
+  tasks:
+  - user:
+      name: "jack"
+      password: "1"
+      state: present
+      groups: "lw"

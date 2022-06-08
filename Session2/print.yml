@@ -1,0 +1,17 @@
+- hosts: all
+  vars:
+          x: 5
+          y: 10
+
+  vars_prompt:
+          - name: z
+            private: no
+            prompt: "Enter your value : "
+  tasks:
+    - debug:
+        msg: "This is test print"
+    - debug:
+        var: z
+    - debug:
+        msg: "This is not string it is a varibale y is {{ y }}"
+

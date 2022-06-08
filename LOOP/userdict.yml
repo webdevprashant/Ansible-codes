@@ -1,0 +1,23 @@
+- hosts: 127.0.0.1
+  vars: 
+  - userdb:
+    - name: "jack"
+      pass: "1"
+      gr: lw
+    - name: "pop"
+      pass: "2"
+      gr: lw
+    - name: "tom"
+      pass: "3"
+      gr: lw
+  tasks:
+  - user:
+      name: "{{ item.name }}"
+      password: "{{ item.pass | password_hash('sha512') }}"
+      state: present
+      groups: "{{ item.gr }}"
+    loop: "{{ userdb }}"
+  #- debug:
+     #var: userdb
+     #var: userdb[1].pass
+     #var: userdb[2].name

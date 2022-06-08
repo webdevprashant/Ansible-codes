@@ -1,0 +1,9 @@
+- hosts: all
+  tasks:
+  - command: "date"
+    register: x
+
+  - debug:
+      #var: x
+      var: x.stdout
+      var: x['stdout']

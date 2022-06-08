@@ -1,0 +1,45 @@
+- hosts: vm
+  tasks:
+   - name: Download docker repo to configure yum for docker
+     get_url:
+       url: "https://download.docker.com/linux/rhel/docker-ce.repo"
+       dest: "/etc/yum.repos.d/"
+   
+   - name: Update my bug in yum file
+     replace:
+       path: "/etc/yum.repos.d/docker-ce.repo"
+       regexp: 'rhel'
+       replace: 'centos'
+
+   - name: Install docker-ce software
+     package:
+       name: "docker-ce"
+       state: "present"
+   
+   - name: start services
+     service:
+       name: "docker"
+       state: started
+       enabled: yes
+
+   - name: Need pip3 command, Install respective  software
+     package:
+       name: "python38-pip"
+       state: present
+
+   - name: Install docker py python SDK
+     pip:
+       name: "docker-py"
+   
+   - name: Pull Ubuntu Image
+     docker_image:
+       name: "ubuntu"
+       tag: "14.04"
+
+   - name: Container of Ubuntu
+     docker_container:
+       name: mycont1
+       state: started
+       image: ubuntu:14.04
+       command: sleep infinity
+       

@@ -1,0 +1,15 @@
+- hosts: localhost
+  tasks:
+  - block:
+    - name: Date comm if block size run then rescue never run
+      command: date
+    - name: ls comm
+      command: lss
+
+    rescue:
+    - name: cal comm if block fails then rescue run only
+      command: cal
+
+    always:
+    - name: Always run doesn't matter above conditions
+      command: ifconfig

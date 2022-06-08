@@ -1,0 +1,33 @@
+- hosts: all
+  vars:
+    p: 
+    - "httpd"
+    - "php"
+    - "firefox"
+  tasks:
+  - name: "Installing Software Httpd"
+    package: 
+      name: " {{ p }}"
+      #name: " {{ p[1] }}"
+      state: present 
+    register: y
+  - debug:
+     #var: y  
+      var: y.changed   
+  - name: "Deploy Pages"
+    copy: 
+      dest: /var/www/html 
+      src: /root/b.html
+       
+  - name: "Start Httpd Services"
+    service: 
+      name: httpd 
+      state: started 
+      enabled: yes
+  
+  - name: "Stop Firewalld Services"
+    firewalld: 
+      immediate: yes 
+      port: "80/tcp" 
+      state: enabled 
+      permanent: yes

@@ -1,0 +1,25 @@
+- name: Setup backend web servers
+  hosts: cliweb
+  vars:
+    fname: "Don"
+  tasks:
+  - name: Install web server
+    package:
+      name: "httpd"
+      state: present
+    register: webinstall
+
+  - debug:
+      msg: "Software successfull........"
+    when: not webinstall.failed
+
+  - name: Deploy web pages
+    copy:
+      dest: "/var/www/html/index.html"
+      content: " Welcome to Linux world {{ fname  }} "
+
+  - name: Start web services
+    service:
+      name: "httpd"
+      state: started
+    when: not webinstall.failed

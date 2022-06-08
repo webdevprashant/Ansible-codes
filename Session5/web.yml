@@ -1,0 +1,57 @@
+- hosts: clivm
+  vars_files:
+  - webvar.yml 
+  tasks:
+          #- name: Run Command
+          #command: "mkdir /root/eww"
+          #ignore_errors: true 
+
+  - name: Install web package
+    package:
+      name:  "{{web_pack }}"
+      #name:  "httpd1234"
+      state: present
+      #when: ansible_os_family == "RedHat" and  ansible_memory_mb.real.free >= 100
+    register: webin
+    ignore_errors: true 
+
+  - debug:
+      var: webin
+  - debug:
+      var: webin.rc
+
+  - name: Deploy web pages 
+    template:
+      dest: "{{ doc_root }}/index.html"
+      src: "{{ web_page }}"
+    when: webin.rc == 0
+  
+  - name: Config change in my apache web server
+    template:
+      dest: "/etc/httpd/conf.d/my.conf"
+      src: "my.conf.j2" 
+    notify: "Restart web services"
+    when: webin.rc == 0
+
+  - name: Start Services
+    service:
+      name: "{{ web_pack }}"
+      state: started
+    when: webin.rc == 0
+  
+  - name: Testing web server connectivity
+    uri:
+      url: "http://192.168.43.210:2122/my.html"
+    register: s
+  - debug:
+      msg: "Test connecting successfull..."
+    when: s.status == 200
+  
+  handlers:
+  - name: Restart web services
+    service:
+      name: "{{ web_pack }}"
+      state: restarted
+    when: webin.rc == 0
+
+

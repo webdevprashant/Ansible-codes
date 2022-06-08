@@ -1,0 +1,31 @@
+- name: Setup LB using nginux
+  hosts: clilb
+  tasks:
+  - name: Install software for nginux
+    package:
+      name: "nginx"
+      state: present
+    register: lbinstall
+  
+  - debug:
+      msg: "Software installed successfully"
+    when: not lbinstall.failed
+
+  - name: Configure nginx LB system
+    template:
+      src: "lbconf.j2"
+      dest: "/etc/nginx/conf.d/lb.conf"
+    notify: "Service restart nginx"
+
+  - name: Start Services
+    service:
+      name: "nginx"
+      state: started
+    when: not lbinstall.failed
+  
+  handlers:
+  - name: Service restart nginx
+    service:
+      name: "nginx"
+      state: restarted
+    when: not lbinstall.failed

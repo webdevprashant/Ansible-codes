@@ -1,0 +1,13 @@
+- hosts: localhost
+  vars_files: 
+  #- credential.yml 
+  - myvoult.yml 
+  tasks:
+  - name: Sending an e-mail using Gmail SMTP servers
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      username: "{{  myuser  }}"
+      password:  "{{ mypass }}"
+      to: Lord of Darkness <prashantkumar69328@gmail.com>
+      subject: Testing email by ansible localhost

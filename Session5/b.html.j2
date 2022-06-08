@@ -1,0 +1,26 @@
+wwe is the best {{ company_name  }}
+
+{%  if ansible_os_family == "RedHat"  %}
+I am from redhat 8, RHCSA certified
+{% endif %}
+
+{%  if hello is undefined  %}
+admin which
+{% endif  %}
+
+{% for i in [1,2,3,4,5,6,7] %}
+World Heavyweight ChampionShip
+192.168.43.12{{i}}
+{% endfor  %}
+
+{% for j  in  ["jacxk" , "pop" , "tom" , "erik"]  %}
+{{j}}@gmail.com
+{% endfor  %}
+
+{{ [12, 3, 4, 567, 56, 45 ] | max }}
+{{ [12, 3, 4, 567, 56, 45 ] | min }}
+{{ [12, 3, 4, 567,12,  56, 4, 3,  45, 56 ] | unique }}
+{{ [12, 3, 4, 567, 56, 45 ] | random }}
+{{ [12, 3, 4, 567, 56, 45 ] | max }}
+
+{{ "http://my.vimalsir.com/latest/data/hello.html" | urlsplit('hostname')  }}

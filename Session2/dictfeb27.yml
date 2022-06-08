@@ -1,0 +1,12 @@
+- hosts: 172.17.0.2
+  vars:
+    x:
+      name: "Pras"
+      phone: 1111
+      remarks: "oK"
+      id: 1123
+  tasks:
+  - debug:
+      var: x
+      var: x['name']
+      var: x.phone

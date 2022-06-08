@@ -1,0 +1,15 @@
+upstream myproj {
+ {%   for i in groups.cliweb %}  
+	server {{i}}:80;
+      {% endfor %}
+}
+
+  server {
+    listen  8080;
+
+#      server_name www.domain.com;
+    
+    location / {
+      proxy_pass http://myproj;
+    }
+   }

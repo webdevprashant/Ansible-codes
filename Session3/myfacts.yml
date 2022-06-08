@@ -1,0 +1,18 @@
+#- hosts: all
+- hosts: webserver
+  vars:
+     x: 5
+  tasks:
+  - debug:
+      #var: ansible_facts
+      #var: ansible_devices['dm-0'].holders
+      var: ansible_devices.sda.partitions.sda2.holders[1]
+  - debug:
+      var: ansible_memfree_mb
+  - debug:
+      #var: ansible_default_ipv4['address']
+      var: ansible_default_ipv4.address
+  - debug:
+      msg: "My os name is {{ ansible_distribution }} "
+  - debug:
+      msg: "Value of x is {{ x }} "

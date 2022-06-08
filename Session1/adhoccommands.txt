@@ -1,0 +1,30 @@
+configure web server:-
+
+1. Install httpd
+  ansible all -m package -a "name=httpd state=present/installed"
+
+2. Configure web pages:
+  ansible all -m copy -a "dest=/var/www/html src=/root/b.html"
+
+3. Start Services
+  ansible all -m service -a "name=httpd state=started enabled=yes"
+
+4. Stop Firewalld Services
+  ansible all -m firewalld -a "state=enabled immediate=yes port=80/tcp permanent=yes"
+
+Install Ansible in OS.
+
+Step1:- Install epel-release in yum
+
+dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+Step2 :- yum install ansible -y
+
+  376  ansible all --list-hosts
+  377  vim /etc/ansible/hosts		// Write Ip,username,pass of Managed nodes 
+  378  vim /etc/ansible/ansible.cfg 
+  379  vim /etc/ansible/hosts 
+  380  ansible all --list-hosts
+  382  mkdir /Ansible
+  465  alias ap='ansible-playbook'
+
